@@ -9,55 +9,54 @@
     <title>Catch and Dash</title>
   </head>
   <body>
-    <div class="screen">
-      <h1>Catch The Insect</h1>
+    
+    <div class="screen first">
+
+      <div class="title-pos">
+        <h3 class="title">The Flow Zone</h3>
+      </div>
+
+    
+      <p >Catch Me If You Can<p>
       <button class="btn" id="start-btn">Play Game</button>
     </div>
 
     <div class="screen">
-      <h1>What is your "favorite" insect?</h1>
+      <h1>What is your "favorite" animal?</h1>
       <ul class="insects-list">
         <li>
-          <button class="choose-insect-btn">
-            <p>Fly</p>
-            <img src="https://pngimg.com/uploads/fly/fly_PNG3946.png" alt="" />
+          <button class="choose-insect-btn" id="cats">
+            <p>Cats</p>
+            <img src="https://png.pngtree.com/png-clipart/20230511/ourmid/pngtree-isolated-cat-on-white-background-png-image_7094927.png" alt="" />
           </button>
         </li>
         <li>
-          <button class="choose-insect-btn">
-            <p>Mosquito</p>
-            <img src="http://pngimg.com/uploads/mosquito/mosquito_PNG18175.png" alt="" />
+          <button class="choose-insect-btn" id="dogs">
+            <p>Dogs</p>
+            <img src="assets/images/dog.png" alt="" />
           </button>
         </li>
-        <li>
-            <button class="choose-insect-btn">
-              <p>Spider</p>
-              <img src="https://pngimg.com/uploads/spider/spider_PNG12.png" alt="" />
-            </button>
-          </li>  
-          <li>
-            <button class="choose-insect-btn">
-              <p>Roach</p>
-              <img src="https://pngimg.com/uploads/roach/roach_PNG12163.png" alt="" />
-            </button>
-          </li>        </ul>
+        
+                </ul>
     </div>
 
     
 
     <div class="screen game-container" id="game-container">
-        
+      <audio id ='cute1' src=""></audio>
+      <audio id ='angry1' src=""></audio>
+ 
         <h3 class="time" id="time">Time: 00:00</h3>
         <h3 class="score" id="score">Score: 0</h3>
         
         <h4 class="message" id="message">
 
-            You Will Never Win hahahahahahhaha<br>
+            You Will Never Win mew mew mew mew<br>
            
         </h4>
 
       
     </div>
-    <script src="script.js"></script>
+    <script src="script/script.js"></script>
   </body>
 </html>

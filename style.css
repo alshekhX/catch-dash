@@ -68,6 +68,30 @@ background-color: rgba(255, 255, 255, 0.7);
     opacity: 0.9;
 }
 
+
+.screen.first .title-pos{
+
+position: absolute;
+top: 50px;
+left: 6vw;
+
+}
+
+
+.title{
+-webkit-text-stroke: .0001px white; /* Set the stroke width and color */
+transition: color .5s ease-in-out ;
+font-size: larger;
+font-weight:bolder;
+color: #fff;
+    
+    }
+
+.screen.first{
+        display: relative;
+    }
+    
+
 .screen{
 
 height:  100vh;
@@ -160,5 +184,35 @@ transition: transform 0.3s ease-in-out;
 .insect img{
     width: 100px;
     height: 100px;
+}
+
+
+
+.title {
+    animation: flowUpAndDown 3s ease-in-out infinite alternate, waveText 3s ease-in-out infinite;
+  }
+  
+  @keyframes flowUpAndDown {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px); /* Adjust the distance for desired movement */
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+@keyframes waveText {
+  0% {
+    text-shadow: 0 0 0 #f037a5; /* Adjust color as needed */
+  }
+  50% {
+    text-shadow: 10px 0 0 #f037a5, -5px 0 0 #f037a5; /* Adjust wave width */
+  }
+  100% {
+    text-shadow: 0 0 0 #f037a5;
+  }
 }
 

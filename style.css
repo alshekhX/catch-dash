@@ -1,208 +1,196 @@
-@import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap");
 
-*{
-    box-sizing: border-box;
+* {
+  box-sizing: border-box;
 }
-body{
-    height: 100vh;
-    background-color: #516dff;
-    font-family: 'Press Start 2P',sans-serif;
-    overflow: hidden;
-    margin: 0;
-    text-align: center;
-    color: white;
-}
-
-a{
-    color: white;
-}
-h1{
-    line-height: 1.4;
+body {
+  height: 100vh;
+  background-color: #6f42c1;
+  font-family: "Press Start 2P", sans-serif;
+  overflow: hidden;
+  margin: 0;
+  text-align: center;
+  color: white;
 }
 
-.insects-list{
-    display: flex;
-    flex-wrap: wrap;
-    padding: 0;
-    justify-content: center;
-    list-style-type: none;
+a {
+  color: white;
 }
-.insects-list li{
-    margin: 10px;
-
+h1 {
+  line-height: 1.4;
 }
 
-.choose-insect-btn{
-    color: white;
-    background-color: transparent;
-    font-family: inherit;
-    border: 2px solid #fff;
-    width: 150px;
-    height: 150px;
-    cursor: pointer ;
+.insects-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  justify-content: center;
+  list-style-type: none;
 }
-.choose-insect-btn:hover{
-
-    background-color: #fff;
-    color: #516dff;
+.insects-list li {
+  margin: 10px;
 }
 
-.choose-insect-btn:active{
-
-background-color: rgba(255, 255, 255, 0.7);    
+.choose-insect-btn {
+  color: white;
+  background-color: transparent;
+  font-family: inherit;
+  border: 2px solid #fff;
+  border-bottom: 35px solid #fff;
+  width: 150px;
+  height: 150px;
+  cursor: pointer;
+}
+.choose-insect-btn:hover {
+  background-color: #fff;
+  color: #6f42c1;
 }
 
- 
-
-
-.btn{
-    border: 0;
-    background-color: #fff;
-    color:#516dff;
-    padding: 15px 20px;
-    font-family: inherit;
-    cursor: pointer;
+.choose-insect-btn:active {
+  background-color: rgba(255, 255, 255, 0.7);
 }
 
-.btn:hover{
-    opacity: 0.9;
+.btn {
+  border: 0;
+  background-color: #fff;
+  color: #6f42c1;
+  padding: 15px 20px;
+  font-family: inherit;
+  cursor: pointer;
 }
 
-
-.screen.first .title-pos{
-
-position: absolute;
-top: 50px;
-left: 6vw;
-
+.btn:hover {
+  opacity: 0.9;
 }
 
-
-.title{
--webkit-text-stroke: .0001px white; /* Set the stroke width and color */
-transition: color .5s ease-in-out ;
-font-size: larger;
-font-weight:bolder;
-color: #fff;
-    
-    }
-
-.screen.first{
-        display: relative;
-    }
-    
-
-.screen{
-
-height:  100vh;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-width: 100vw;
-transition: margin .5s ease-in-out;
-
+.screen.first .title-pos {
+  position: absolute;
+  top: 50px;
+  left: 6vw;
 }
 
-.screen.up{
-    margin-top: -100vh;
-}
-.choose-insect-btn img{
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
+.title {
+  -webkit-text-stroke: 0.0001px white; /* Set the stroke width and color */
+  transition: color 0.5s ease-in-out;
+  font-size: larger;
+  font-weight: bolder;
+  color: #fff;
 }
 
+.screen.first {
+  display: relative;
+}
+
+.give-up {
+    padding: 5px;
+  font-size: 12;
+  color: darksalmon;
+  font-weight: bold;
+  position: absolute;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.screen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  transition: margin 0.5s ease-in-out;
+  background-attachment: fixed;
+  animation: moveGradient 50s ease-in-out infinite;
+}
+
+.screen.up {
+  margin-top: -100vh;
+}
+.choose-insect-btn img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
 
 /* final screen */
 
-.game-container{
-    position: relative;
+.game-container {
+  position: relative;
 }
 
-.time , .score{
-
-    position: absolute;
-    top:20px
+.time,
+.score {
+  position: absolute;
+  top: 20px;
 }
 
-.time{
-    left: 20px;
+.time {
+  left: 20px;
 }
 
-.score{
-    right: 20px;
-
+.score {
+  right: 20px;
 }
 
-.message{
-    background-color: rgba(0, 0, 0, 0.5);
-    width: 100%;
-    padding: 20px;
-    z-index: 100;
-    text-align: center;
-    opacity: 0;
-    position: absolute;
-    left: 50%;
-    top: 0;
-    left: 50%;
-    line-height: 1.7;
-    transform: translate(-50%, -150%);
-    transition: transform 0.4s ease-in-out;
-    
+.message {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  padding: 20px;
+  z-index: 100;
+  text-align: center;
+  opacity: 0;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  left: 50%;
+  line-height: 1.7;
+  transform: translate(-50%, -150%);
+  transition: transform 0.4s ease-in-out;
 }
 
-.message.visible{
-    transform: translate(-50%, 150%);
-    opacity: 1;
-
+.message.visible {
+  transform: translate(-50%, 150%);
+  opacity: 1;
 }
 
-.insect{
-
-cursor: pointer;
-display: flex;
-width: 100px;
-height: 100px;
-position: absolute;
-align-items: center;
-justify-content: center;
-transform: translate(50%,-50%) scale(2);
-top: 400px;
-left: 500px;
-transition: transform 0.3s ease-in-out;
-
+.insect {
+  cursor: pointer;
+  display: flex;
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  transform: translate(50%, -50%) scale(2);
+  transition: transform 0.3s ease-in-out;
 }
 
-
-.insect.caught{
-
-    transform: translate(50%,-50%) scale(0);
-    
-    }
-
-.insect img{
-    width: 100px;
-    height: 100px;
+.insect.caught {
+  transform: translate(50%, -50%) scale(0);
+  color: #f037a5;
 }
 
-
+.insect img {
+  width: 100px;
+  height: 100px;
+}
 
 .title {
-    animation: flowUpAndDown 3s ease-in-out infinite alternate, waveText 3s ease-in-out infinite;
+  animation: flowUpAndDown 3s ease-in-out infinite alternate,
+    waveText 3s ease-in-out infinite;
+}
+
+@keyframes flowUpAndDown {
+  0% {
+    transform: translateY(0);
   }
-  
-  @keyframes flowUpAndDown {
-    0% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px); /* Adjust the distance for desired movement */
-    }
-    100% {
-      transform: translateY(0);
-    }
+  50% {
+    transform: translateY(-10px); /* Adjust the distance for desired movement */
   }
+  100% {
+    transform: translateY(0);
+  }
+}
 
 @keyframes waveText {
   0% {
@@ -215,4 +203,3 @@ transition: transform 0.3s ease-in-out;
     text-shadow: 0 0 0 #f037a5;
   }
 }
-

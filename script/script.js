@@ -10,12 +10,24 @@ const messageEl = document.getElementById("message");
 const cat_cute = document.getElementById("cat-cute");
 const cat_angry = document.getElementById("cat-angry");
 const title = document.querySelector(".title");
+const overMessage = document.getElementById("over");
+const resultMessage = document.getElementById("result-message");
+
+const restartBtn = document.getElementById("restart");
+const returnHomeBtn = document.getElementById("return");
+let timeIntervail;
+let animalIntervel;
+
+
+
 let finish = false;
 
 let mode;
 let current_animals = [];
 let cute;
 let angry;
+let scream;
+
 
 let secounds = 0;
 let score = 0;
@@ -26,6 +38,8 @@ const colors = [
   "#28a745", // Forest green
   "#ffc107", // Orange
 ];
+
+screamUrl="assets/audio/scream.mp3";
 
 const cats = [
   {
@@ -71,8 +85,6 @@ function changeColor() {
   title.style.color = colors[Math.floor(Math.random() * colors.length)];
 }
 
-window.addEventListener("load", setInterval);
-
 start_btn.addEventListener("click", () => {
   screens[0].classList.add("up");
 });
@@ -83,23 +95,23 @@ choose_insect_btns.forEach((button) => {
     current_animals = mode == "cats" ? cats : dogs;
 
     screens[1].classList.add("up");
+    finish=false;
 
-    setInterval(createAnimal, 700);
+animalIntervel= setInterval(createAnimal, 700);
     startGame();
   });
 });
 
 function startGame() {
   title.style.display = `none`;
-  if(finish==true){
-return;}
-setInterval(increaseTime, 1000);
-
+  if (finish == true) {
+    return;
+  }
+ timeIntervail= setInterval(increaseTime, 1000);
 }
 
 function increaseTime() {
   if (finish === true) {
-    timeEl.innerHTML = `Time: ${00}:${00}`;
     return;
   }
   let m = Math.floor(secounds / 60);
@@ -112,10 +124,9 @@ function increaseTime() {
 }
 
 //create animal on the screen
-function createAnimal() {
-
-  const screenMax= document.querySelectorAll(".insect");
-  if(screenMax.length>=50){
+ function createAnimal() {
+  const screenMax = document.querySelectorAll(".insect");
+  if (screenMax.length >= 50) {
     return;
   }
 
@@ -182,16 +193,13 @@ function createAnimal() {
     insect.style.left = `${newX}px`;
     insect.style.top = `${newY}px`;
   }
-  if (score > 1) {
-
+  if (score > 30) {
     setInterval(moveInsect, 30); // Move every second
   }
 
   insect.addEventListener("mouseenter", catchAnimal);
 
   game_container.appendChild(insect);
-  game_container.appendChild(cute);
-  game_container.appendChild(angry);
 
   cute.play();
 }
@@ -211,11 +219,8 @@ function catchAnimal() {
   increaseScore();
   this.classList.add("caught");
   angry.play();
-  cute.remove();
-  setTimeout(() => angry.remove(), 2500);
-  setTimeout(() => cute.remove(), 2000);
 
-  setTimeout(() => this.remove(), 2000);
+  setTimeout(() => this.remove(), 5000);
 
   addInsect();
 }
@@ -226,12 +231,16 @@ function addInsect() {
 
 function increaseScore() {
   score++;
-  
-  if (score % 10 === 0) { // Check if score is a multiple of 10
+
+  if (score % 10 === 0) {
+    // Check if score is a multiple of 10
     createGiveUp();
   }
 
   if (score > 15) {
+
+    messageEl.innerHTML = `YOU WILL NEVER CATCH US`;
+
     messageEl.classList.add("visible");
   }
   if (score > 30) {
@@ -239,23 +248,25 @@ function increaseScore() {
   }
 
   if (score > 50) {
+    
+  if (score % 6 === 0) {
+    // Check if score is a multiple of 10
+    createAnimal();
+  }
     messageEl.innerHTML = `Alright You have done it, We WILL SHOW MEW MERCY `;
   }
 
   if (score > 90 && score < 200) {
     messageEl.innerHTML = `More Than 100 Kittens Are DEAD, DEAD you son of mew`;
-    createAnimal();
   }
 
   if (score > 200) {
     messageEl.innerHTML = `Alright you win we Give Up `;
-
   }
 
   if (score > 250) {
-    messageEl.innerHTML = `SIKE, We will never give up`;
-    createAnimal();
-  }
+    messageEl.innerHTML = `SIKE, We will never give up`;}
+
   scoreEl.innerHTML = `Score: ${score}`;
 }
 
@@ -290,8 +301,8 @@ function createGiveUp() {
   // Set random speed and direction
 
   // Set random speed and direction
-  let speedX = Math.random() * 5 - 2.5; // Random speed between -2.5 and 2.5
-  let speedY = Math.random() * 5 - 2.5; //
+  let speedX = Math.random() * 10 - 5; // Random speed between -2.5 and 2.5
+  let speedY = Math.random() * 10 - 4; //
 
   function moveGiveUp() {
     // Get container dimensions
@@ -329,17 +340,76 @@ function createGiveUp() {
   }
   giveUp.addEventListener("mouseenter", stopGame);
 
-  setInterval(moveGiveUp, 50); // Move every second
+  setInterval(moveGiveUp, 30); // Move every second
 
   game_container.appendChild(giveUp);
 }
 
 function stopGame() {
+  scream = document.createElement("audio");
+  scream.src=screamUrl;
+
+  scream.play()
+
+  if (finish == true) {
+    return;
+  }
   finish = true;
-  messageEl.classList.add("visible");
+  messageEl.classList.remove("visible");
+  resultMessage.innerHTML = ` You Catch ${score} in ${timeEl.innerHTML.slice(
+    5,
+    timeEl.innerHTML.length
+  )}`;
+
+  overMessage.classList.add("over-message");
 
   score = 0;
   secounds = 0;
-  messageEl.innerHTML = `You Lose, as expected`;
+}
 
+function restartGame() {
+  finish = false;
+  timeEl.innerHTML = `Time: ${00}:${00}`;
+  scoreEl.innerHTML = `Score: 0`;
+
+
+  removeGame();
+
+  overMessage.classList.remove("over-message");
+}
+
+
+function returnHome() {
+  stopIntervals();
+
+  timeEl.innerHTML = `Time: ${00}:${00}`;
+  scoreEl.innerHTML = `Score: 0`;
+
+  removeAllElementsByClass("insect");
+  removeAllElementsByClass("give-up");
+
+  overMessage.classList.remove("over-message");
+  screens[1].classList.remove("up");
+  screens[0].classList.remove("up");
+
+
+
+}
+
+restartBtn.addEventListener("click", restartGame);
+returnHomeBtn.addEventListener("click", returnHome);
+
+function removeGame() {
+  removeAllElementsByClass("insect");
+  removeAllElementsByClass("give-up");
+}
+function removeAllElementsByClass(className) {
+  const elements = document.querySelectorAll(`.${className}`);
+  elements.forEach((element) => element.remove());
+}
+
+function stopIntervals() {
+  clearInterval(timeIntervail);
+  clearInterval(animalIntervel);
+  
 }

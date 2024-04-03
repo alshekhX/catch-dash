@@ -60,7 +60,7 @@ h1 {
 }
 
 .btn:hover {
-  opacity: 0.9;
+  opacity: 0.8;
 }
 
 .screen.first .title-pos {
@@ -83,13 +83,29 @@ h1 {
 
 .give-up {
     padding: 5px;
-  font-size: 12;
+  font-size: 16px;
   color: darksalmon;
   font-weight: bold;
   position: absolute;
   font-family: inherit;
   cursor: pointer;
 }
+
+.hint{
+  font-size: 10px;
+}
+
+
+
+.hint2{
+  color: darksalmon;
+
+
+
+}
+
+
+
 
 .screen {
   height: 100vh;
@@ -123,6 +139,31 @@ h1 {
   position: absolute;
   top: 20px;
 }
+@media(max-width :500px) {
+
+  
+.time,
+.score {
+  position: absolute;
+  top: 20px;
+  font-size: 14px;
+}
+
+.insect{
+  width: 50px;
+  transform: translate(50%, -50%) scale(1);
+
+  height: 50px;
+
+}
+
+
+
+.give-up {
+font-size: 12px;
+}
+  
+}
 
 .time {
   left: 20px;
@@ -136,7 +177,6 @@ h1 {
   background-color: rgba(0, 0, 0, 0.5);
   width: 100%;
   padding: 20px;
-  z-index: 100;
   text-align: center;
   opacity: 0;
   position: absolute;
@@ -146,6 +186,28 @@ h1 {
   line-height: 1.7;
   transform: translate(-50%, -150%);
   transition: transform 0.4s ease-in-out;
+}
+
+.over-message{
+  transform: translate(-50%, 170%);
+  opacity: 1;
+  z-index: 100;
+
+}
+
+.message .over-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px ;
+}
+
+.message .over-row .btn{
+
+  
+  margin: 0 20px;;
+  padding: 10px;
+  
 }
 
 .message.visible {

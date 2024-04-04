@@ -121,27 +121,8 @@ start_btn.addEventListener("click", () => {
   screens[0].classList.add("up");
 });
 
-
-
-start_btn.addEventListener("touchstart", () => {
-  screens[0].classList.add("up");
-});
-
 choose_insect_btns.forEach((button) => {
-
   button.addEventListener("click", () => {
-    mode = button.getAttribute("id");
-    current_animals = mode == "cats" ? cats : dogs;
-
-    screens[1].classList.add("up");
-    finish=false;
-
-animalIntervel= setInterval(createAnimal, 700);
-    startGame();
-  });
-
-  
-  button.addEventListener("touchstart", () => {
     mode = button.getAttribute("id");
     current_animals = mode == "cats" ? cats : dogs;
 
@@ -492,13 +473,10 @@ function returnHome() {
 }
 
 restartBtn.addEventListener("click", restartGame);
-restartBtn.addEventListener("touchstart", restartGame);
 
 
 
 returnHomeBtn.addEventListener("click", returnHome);
-returnHomeBtn.addEventListener("touchstart", returnHome);
-
 
 
 function removeGame() {

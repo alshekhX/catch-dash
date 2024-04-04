@@ -108,6 +108,7 @@ const dogs = [
   },
 ];
 
+
 let selected_insect = {};
 
 setInterval(changeColor, 500);
@@ -238,7 +239,9 @@ function increaseTime() {
     setInterval(moveInsect, 30); // Move every second
   }
 
-  insect.addEventListener("mouseenter", catchAnimal);
+  insect.addEventListener("touchstart", catchAnimal);
+  insect.addEventListener("mouseover", catchAnimal);
+
 
   game_container.appendChild(insect);
 
@@ -254,6 +257,7 @@ function getRandomLocation() {
 }
 
 function catchAnimal() {
+  event.preventDefault()
   if (finish === true) {
     return;
   }

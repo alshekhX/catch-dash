@@ -3,6 +3,7 @@
 * {
   box-sizing: border-box;
 }
+
 body {
   height: 100vh;
   background-color: #6f42c1;
@@ -65,8 +66,11 @@ h1 {
 
 .screen.first .title-pos {
   position: absolute;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 ;
   top: 50px;
-  left: 6vw;
+  width: 100vw;
 }
 
 .title {
@@ -74,6 +78,7 @@ h1 {
   transition: color 0.5s ease-in-out;
   font-size: larger;
   font-weight: bolder;
+  padding-left: 50px;
   color: #fff;
 }
 
@@ -95,17 +100,9 @@ h1 {
   font-size: 10px;
 }
 
-
-
 .hint2{
   color: darksalmon;
-
-
-
 }
-
-
-
 
 .screen {
   height: 100vh;
@@ -129,7 +126,6 @@ h1 {
 }
 
 /* final screen */
-
 .game-container {
   position: relative;
 }
@@ -139,7 +135,40 @@ h1 {
   position: absolute;
   top: 20px;
 }
+
+.support-button.support-visable{
+  display: block;
+}
+
+.support-button{
+  transform:  scale(.45);
+  display: none;
+
+
+  
+
+}
 @media(max-width :500px) {
+  .title-pos {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+.support-button{
+  transform:  scale(.4);
+  display: none;
+  
+
+}
+
+  
+.title {
+  left: 40px;
+  padding-left: 0;
+}
+
 
   
 .time,
@@ -149,18 +178,21 @@ h1 {
   font-size: 14px;
 }
 
-.insect{
+.insect img {
   width: 50px;
-  transform: translate(50%, -50%) scale(1);
-
   height: 50px;
+  object-fit: contain;
 
 }
 
+.insect{
+  object-fit: cover;
 
+
+}
 
 .give-up {
-font-size: 12px;
+font-size: 11px;
 }
   
 }
@@ -177,6 +209,7 @@ font-size: 12px;
   background-color: rgba(0, 0, 0, 0.5);
   width: 100%;
   padding: 20px;
+  
   text-align: center;
   opacity: 0;
   position: absolute;
@@ -189,7 +222,7 @@ font-size: 12px;
 }
 
 .over-message{
-  transform: translate(-50%, 170%);
+  transform: translate(-50%, 100%);
   opacity: 1;
   z-index: 100;
 
@@ -213,13 +246,14 @@ font-size: 12px;
 .message.visible {
   transform: translate(-50%, 150%);
   opacity: 1;
+  pointer-events: none;
+
+  z-index: 10;
 }
 
 .insect {
   cursor: pointer;
   display: flex;
-  width: 100px;
-  height: 100px;
   position: absolute;
   align-items: center;
   justify-content: center;
@@ -243,14 +277,12 @@ font-size: 12px;
 }
 
 @keyframes flowUpAndDown {
+ 
   0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px); /* Adjust the distance for desired movement */
+    transform: translateY(-8px); /* Adjust the distance for desired movement */
   }
   100% {
-    transform: translateY(0);
+    transform: translateY(8px);
   }
 }
 

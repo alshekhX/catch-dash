@@ -12,11 +12,40 @@ const cat_angry = document.getElementById("cat-angry");
 const title = document.querySelector(".title");
 const overMessage = document.getElementById("over");
 const resultMessage = document.getElementById("result-message");
+const supportButton = document.querySelector(".support-button");
+
 
 const restartBtn = document.getElementById("restart");
 const returnHomeBtn = document.getElementById("return");
 let timeIntervail;
 let animalIntervel;
+
+const catDialogs=[
+
+  {title:"You will never catch us",min:15 ,max:30},
+  {title:"Just leave us alone! What the heck is wrong with you?  ",min:25 ,max:50},
+  {title:"Alright, you've done it! We will show you meow mercy.  ",min:50 ,max:100},
+  {title:"So how are you going to feed the 100+ cats you just catch?  ",min:100 ,max:150},
+  {title:"Alright, alright, we give up. Now touch GIVE UP to get your trophy  ",min:150 ,max:200},
+  {title:"SIKE! We will never give up.  ",min:250 ,max:300},
+  {title:"Soon human, your screams will be the soundtrack to our victory dance, meow meow meow meow  ",min:300 ,max:350},
+
+
+]
+
+
+const dogDialogs=[
+
+  {title:"You will never catch us",min:15 ,max:30},
+  {title:"Dogs are humans' best friends, not you though.  ",min:25 ,max:50},
+  {title:"Woof Woof Grrrrrrrrrrrrrrrrrrrrrrr  ",min:50 ,max:100},
+  {title:"So how are you going to feed the 100+ dogs you just catch?  ",min:100 ,max:150},
+  {title:"Woof give up, Woof give up, Woof give up, Woof give up  ",min:150 ,max:200},
+  {title:"SIKE! We will never give up.  ",min:250 ,max:300},
+  {title:"Soon human, Your screams will be our anthem. Gurrrrr  ",min:300 ,max:350},
+
+
+]
 
 
 
@@ -144,6 +173,10 @@ function increaseTime() {
   cute.src = animal.enter;
   angry.src = animal.exit;
 
+  var screenWidth = window.innerWidth;
+  console.log("Window width:", screenWidth);
+
+
   insect.classList.add("insect");
   const { x, y } = getRandomLocation();
 
@@ -151,7 +184,13 @@ function increaseTime() {
   insect.style.left = `${x}px`;
   insect.innerHTML = `<img src="${animal.img}" alt="${
     selected_insect.alt
-  }" style="transform: rotate(${Math.random() * 360}deg)"  />`;
+  }" style="transform: rotate(${Math.random() * 360}deg); width:${screenWidth>500?'100px':'70px'} ";
+  height:${screenWidth>500?'100px':'70px'}
+  
+  
+  
+  
+  />`;
 
   // Set random speed and direction
 
@@ -230,6 +269,8 @@ function addInsect() {
 }
 
 function increaseScore() {
+  const dialogs= mode == "cats" ? catDialogs : dogDialogs;
+
   score++;
 
   if (score % 10 === 0) {
@@ -237,35 +278,50 @@ function increaseScore() {
     createGiveUp();
   }
 
-  if (score > 15) {
 
-    messageEl.innerHTML = `YOU WILL NEVER CATCH US`;
+dialogs.map((dialog)=>{
 
-    messageEl.classList.add("visible");
-  }
-  if (score > 30) {
-    messageEl.innerHTML = `Just Leave us alone man, what the hell?`;
-  }
+if (score>=dialog.min&&dialog.max>=score) {
+  
+  messageEl.innerHTML = dialog.title;
 
-  if (score > 50) {
+  messageEl.classList.add("visible");
+  
+}
+
+
+
+})
+
+  // if (score > 15) {
+
+  //   messageEl.innerHTML = `YOU WILL NEVER CATCH US`;
+
+  //   messageEl.classList.add("visible");
+  // }
+  // if (score > 30) {
+  //   messageEl.innerHTML = `Just Leave us alone man, what the hell?`;
+  // }
+
+  // if (score > 50) {
     
-  if (score % 6 === 0) {
-    // Check if score is a multiple of 10
-    createAnimal();
-  }
-    messageEl.innerHTML = `Alright You have done it, We WILL SHOW MEW MERCY `;
-  }
+  // if (score % 6 === 0) {
+  //   // Check if score is a multiple of 10
+  //   createAnimal();
+  // }
+  //   messageEl.innerHTML = `Alright You have done it, We WILL SHOW MEW MERCY `;
+  // }
 
-  if (score > 90 && score < 200) {
-    messageEl.innerHTML = `More Than 100 Kittens Are DEAD, DEAD you son of mew`;
-  }
+  // if (score > 90 && score < 200) {
+  //   messageEl.innerHTML = `More Than 100 Kittens Are DEAD, DEAD you son of mew`;
+  // }
 
-  if (score > 200) {
-    messageEl.innerHTML = `Alright you win we Give Up `;
-  }
+  // if (score > 200) {
+  //   messageEl.innerHTML = `Alright you win we Give Up `;
+  // }
 
-  if (score > 250) {
-    messageEl.innerHTML = `SIKE, We will never give up`;}
+  // if (score > 250) {
+  //   messageEl.innerHTML = `SIKE, We will never give up`;}
 
   scoreEl.innerHTML = `Score: ${score}`;
 }
@@ -355,11 +411,15 @@ function stopGame() {
     return;
   }
   finish = true;
+
   messageEl.classList.remove("visible");
   resultMessage.innerHTML = ` You Catch ${score} in ${timeEl.innerHTML.slice(
     5,
     timeEl.innerHTML.length
-  )}`;
+  )}
+  
+  `;
+  supportButton.classList.add("support-visable")
 
   overMessage.classList.add("over-message");
 
@@ -374,6 +434,7 @@ function restartGame() {
 
 
   removeGame();
+  supportButton.classList.remove("support-visable")
 
   overMessage.classList.remove("over-message");
 }
@@ -387,6 +448,7 @@ function returnHome() {
 
   removeAllElementsByClass("insect");
   removeAllElementsByClass("give-up");
+  supportButton.classList.remove("support-visable")
 
   overMessage.classList.remove("over-message");
   screens[1].classList.remove("up");

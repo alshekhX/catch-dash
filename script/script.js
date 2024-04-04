@@ -10,6 +10,8 @@ const messageEl = document.getElementById("message");
 const cat_cute = document.getElementById("cat-cute");
 const cat_angry = document.getElementById("cat-angry");
 const title = document.querySelector(".title");
+const header = document.querySelector(".title-pos");
+
 const overMessage = document.getElementById("over");
 const resultMessage = document.getElementById("result-message");
 const supportButton = document.querySelector(".support-button");
@@ -132,7 +134,7 @@ animalIntervel= setInterval(createAnimal, 700);
 });
 
 function startGame() {
-  title.style.display = `none`;
+  header.classList.add('hide');
   if (finish == true) {
     return;
   }
@@ -428,6 +430,7 @@ function stopGame() {
 }
 
 function restartGame() {
+
   finish = false;
   timeEl.innerHTML = `Time: ${00}:${00}`;
   scoreEl.innerHTML = `Score: 0`;
@@ -437,6 +440,7 @@ function restartGame() {
   supportButton.classList.remove("support-visable")
 
   overMessage.classList.remove("over-message");
+
 }
 
 
@@ -451,6 +455,8 @@ function returnHome() {
   supportButton.classList.remove("support-visable")
 
   overMessage.classList.remove("over-message");
+  header.classList.remove('hide');
+
   screens[1].classList.remove("up");
   screens[0].classList.remove("up");
 

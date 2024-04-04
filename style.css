@@ -64,6 +64,13 @@ h1 {
   opacity: 0.8;
 }
 
+.screen.first .title-pos.hide{
+  display: none;
+
+
+
+}
+
 .screen.first .title-pos {
   position: absolute;
   display: flex;

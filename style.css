@@ -2,10 +2,12 @@
 
 * {
   box-sizing: border-box;
+
 }
 
 body {
   height: 100vh;
+  width: 100vw;
   background-color: #6f42c1;
   font-family: "Press Start 2P", sans-serif;
   overflow: hidden;
@@ -36,14 +38,13 @@ h1 {
   color: white;
   background-color: transparent;
   font-family: inherit;
-  border: 2px solid #fff;
-  border-bottom: 35px solid #fff;
+  border: 2px solid white;
   width: 150px;
   height: 150px;
   cursor: pointer;
 }
 .choose-insect-btn:hover {
-  background-color: #fff;
+  background-color: white;
   color: #6f42c1;
 }
 
@@ -156,6 +157,11 @@ h1 {
 
 }
 @media(max-width :500px) {
+  
+* {
+  overflow: hidden;
+
+}
   .title-pos {
     flex-direction: column;
     justify-content: center;
@@ -199,7 +205,18 @@ h1 {
 }
 
 .give-up {
+  padding: 7px;
+z-index: 100;
 font-size: 11px;
+}
+
+
+
+.message {
+  padding: 5px;
+  
+  font-size: 12px;
+  line-height: 1;
 }
   
 }
@@ -229,7 +246,7 @@ font-size: 11px;
 }
 
 .over-message{
-  transform: translate(-50%, 100%);
+  transform: translate(-50%, 30vh);
   opacity: 1;
   z-index: 100;
 

@@ -42,7 +42,7 @@ const dogDialogs=[
   {title:"Dogs are humans' best friends, not you though.  ",min:25 ,max:50},
   {title:"Woof Woof Grrrrrrrrrrrrrrrrrrrrrrr  ",min:50 ,max:100},
   {title:"So how are you going to feed the 100+ dogs you just catch?  ",min:100 ,max:150},
-  {title:"Woof give up, Woof give up, Woof give up, Woof give up  ",min:150 ,max:200},
+  {title:"Alright, alright, we give up. Now touch GIVE UP to get your trophy  ",min:150 ,max:200},
   {title:"SIKE! We will never give up.  ",min:250 ,max:300},
   {title:"Soon human, Your screams will be our anthem. Gurrrrr  ",min:300 ,max:350},
 
@@ -248,6 +248,8 @@ function increaseTime() {
   cute.play();
 }
 
+
+
 function getRandomLocation() {
   const width = window.innerWidth;
   const height = window.innerHeight;
@@ -401,6 +403,8 @@ function createGiveUp() {
     giveUp.style.top = `${newY}px`;
   }
   giveUp.addEventListener("mouseenter", stopGame);
+  giveUp.addEventListener("touchstart", stopGame);
+
 
   setInterval(moveGiveUp, 30); // Move every second
 

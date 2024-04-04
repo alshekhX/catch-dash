@@ -3,7 +3,6 @@ const screens = document.querySelectorAll(".screen");
 const choose_insect_btns = document.querySelectorAll(".choose-insect-btn");
 const start_btn = document.getElementById("start-btn");
 const game_container = document.getElementById("game-container");
-console.log(game_container);
 const timeEl = document.getElementById("time");
 const scoreEl = document.getElementById("score");
 const messageEl = document.getElementById("message");
@@ -177,7 +176,6 @@ function increaseTime() {
   angry.src = animal.exit;
 
   var screenWidth = window.innerWidth;
-  console.log("Window width:", screenWidth);
 
 
   insect.classList.add("insect");
@@ -198,8 +196,8 @@ function increaseTime() {
   // Set random speed and direction
 
   // Set random speed and direction
-  let speedX = Math.random() * 5 - 2.5; // Random speed between -2.5 and 2.5
-  let speedY = Math.random() * 5 - 2.5; //
+  let speedX = Math.random() * 7 - 3.5; // Random speed between -2.5 and 2.5
+  let speedY = Math.random() * 7 - 3.5; //
 
   function moveInsect() {
     // Get container dimensions
@@ -248,13 +246,23 @@ function increaseTime() {
   cute.play();
 }
 
+function isMobile() {
+  const userAgent = navigator.userAgent;
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+}
 
 
-function getRandomLocation() {
+function getRandomLocation(animalWidth) {
   const width = window.innerWidth;
   const height = window.innerHeight;
-  const x = Math.random() * (width - 250) + 100;
-  const y = Math.random() * (height - 250) + 100;
+  console.log("Window width:", animalWidth);
+  const num= isMobile()?200:250;
+  const padding= isMobile()?10:50;
+
+
+
+  const x = Math.random() * (width - num) +padding ;
+  const y = Math.random() * (height-num) +padding;
   return { x, y };
 }
 

@@ -41,10 +41,9 @@ function popUpText() {
 
 window.onload = function() {
   soundtrack.loop=true;
+
   setInterval(popUpText, 550); // Repeat every 1 second
-
-
-  soundtrack.play();};
+  };
 
 
 //cancel space
@@ -65,6 +64,9 @@ function changeColor() {
 }
 
 start_btn.addEventListener("click", () => {
+
+
+  soundtrack.play();
   screens[0].classList.add("up");
 });
 

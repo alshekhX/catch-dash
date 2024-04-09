@@ -1,117 +1,65 @@
-const screens = document.querySelectorAll(".screen");
+import { screens,choose_animal_btns,start_btn,game_container,timeEl,scoreEl,
 
-const choose_insect_btns = document.querySelectorAll(".choose-insect-btn");
-const start_btn = document.getElementById("start-btn");
-const game_container = document.getElementById("game-container");
-const timeEl = document.getElementById("time");
-const scoreEl = document.getElementById("score");
-const messageEl = document.getElementById("message");
-const cat_cute = document.getElementById("cat-cute");
-const cat_angry = document.getElementById("cat-angry");
-const title = document.querySelector(".title");
-const header = document.querySelector(".title-pos");
+  messageEl,copyRight, hint2, popupText, soundtrack, title,header,overMessage,resultMessage,supportButton,restartBtn,returnHomeBtn
+,catDialogs,dogDialogs,colors,cats,dogs,screamUrl
+} from "./consts.js";
 
-const overMessage = document.getElementById("over");
-const resultMessage = document.getElementById("result-message");
-const supportButton = document.querySelector(".support-button");
+import{ getRandomLocation} from './utils.js'
 
 
-const restartBtn = document.getElementById("restart");
-const returnHomeBtn = document.getElementById("return");
 let timeIntervail;
 let animalIntervel;
-
-const catDialogs=[
-
-  {title:"You will never catch us",min:15 ,max:30},
-  {title:"Just leave us alone! What the heck is wrong with you?  ",min:25 ,max:50},
-  {title:"Alright, you've done it! We will show you meow mercy.  ",min:50 ,max:100},
-  {title:"So how are you going to feed the 100+ cats you just catch?  ",min:100 ,max:150},
-  {title:"Alright, alright, we give up. Now touch GIVE UP to get your trophy  ",min:150 ,max:200},
-  {title:"SIKE! We will never give up.  ",min:250 ,max:300},
-  {title:"Soon human, your screams will be the soundtrack to our victory dance, meow meow meow meow  ",min:300 ,max:350},
-
-
-]
-
-
-const dogDialogs=[
-
-  {title:"You will never catch us",min:15 ,max:30},
-  {title:"Dogs are humans' best friends, not you though.  ",min:25 ,max:50},
-  {title:"Woof Woof Grrrrrrrrrrrrrrrrrrrrrrr  ",min:50 ,max:100},
-  {title:"So how are you going to feed the 100+ dogs you just catch?  ",min:100 ,max:150},
-  {title:"Alright, alright, we give up. Now touch GIVE UP to get your trophy  ",min:150 ,max:200},
-  {title:"SIKE! We will never give up.  ",min:250 ,max:300},
-  {title:"Soon human, Your screams will be our anthem. Gurrrrr  ",min:300 ,max:350},
-
-
-]
-
-
-
-let finish = false;
-
 let mode;
-let current_animals = [];
 let cute;
 let angry;
 let scream;
-
-
+let current_animals = [];
+let finish = false;
 let secounds = 0;
 let score = 0;
-const colors = [
-  "#f037a5", // Hot pink
-  "#ffd700", // Gold
-  "red", // Royal blue
-  "#28a745", // Forest green
-  "#ffc107", // Orange
-];
-
-screamUrl="assets/audio/scream.mp3";
-
-const cats = [
-  {
-    enter: "assets/audio/cute_cat.mp3",
-    exit: "assets/audio/angry_cat.wav",
-    img: "https://png.pngtree.com/png-clipart/20230511/ourmid/pngtree-isolated-cat-on-white-background-png-image_7094927.png",
-  },
-  {
-    enter: "assets/audio/cute_cat2.wav",
-    exit: "assets/audio/angry_cat2.wav",
-    img: "assets/images/cat2.png",
-  },
-  {
-    enter: "assets/audio/cute_cat3.wav",
-    exit: "assets/audio/angry_cat3.wav",
-    img: "assets/images/cat3.png",
-  },
-];
-
-const dogs = [
-  {
-    enter: "assets/audio/cute_dog.wav",
-    exit: "assets/audio/angry_dog.wav",
-    img: "assets/images/dog4.png",
-  },
-  {
-    enter: "assets/audio/cute_dog2.wav",
-    exit: "assets/audio/angry_dog2.wav",
-    img: "assets/images/dog5.png",
-  },
-  {
-    enter: "assets/audio/cute_dog3.wav",
-    exit: "assets/audio/angry_dog.wav",
-    img: "assets/images/dog2.png",
-  },
-];
+let selected_animal = {};
 
 
-let selected_insect = {};
 
+function popUpText() {
+  // Play the sound
+
+  // Simulate a "pop" effect (optional)
+  popupText.classList.add("pop"); // Add a CSS class for styling
+  hint2.classList.add("pop"); // Add a CSS class for styling
+
+  // Remove the "pop" effect after a delay (adjust as needed)
+  setTimeout(function() {
+    popupText.classList.remove("pop");
+    hint2.classList.remove("pop"); // Add a CSS class for styling
+    // Remove the CSS class
+  }, 200); // Remove pop effect after 0.2 seconds
+}
+
+// Set the interval to repeat the pop-up (adjust as needed)
+
+
+window.onload = function() {
+  soundtrack.loop=true;
+  setInterval(popUpText, 550); // Repeat every 1 second
+
+
+  soundtrack.play();};
+
+
+//cancel space
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === " " || event.key === 32) {
+    event.preventDefault();
+    // Optional: Add your custom logic here to handle space key press on the div
+  }
+});
+
+//logo fn
 setInterval(changeColor, 500);
 
+//logo colors
 function changeColor() {
   title.style.color = colors[Math.floor(Math.random() * colors.length)];
 }
@@ -120,25 +68,30 @@ start_btn.addEventListener("click", () => {
   screens[0].classList.add("up");
 });
 
-choose_insect_btns.forEach((button) => {
+choose_animal_btns.forEach((button) => {
   button.addEventListener("click", () => {
     mode = button.getAttribute("id");
     current_animals = mode == "cats" ? cats : dogs;
 
     screens[1].classList.add("up");
-    finish=false;
+    finish = false;
+    // soundtrack.pause()
+    soundtrack.volume = 0.2; // Sets the volume to half (50%)
 
-animalIntervel= setInterval(createAnimal, 700);
+
+
+    animalIntervel = setInterval(createAnimal, 700);
     startGame();
   });
 });
 
 function startGame() {
-  header.classList.add('hide');
+  header.classList.add("hide");
+  copyRight.classList.add("hide");
   if (finish == true) {
     return;
   }
- timeIntervail= setInterval(increaseTime, 1000);
+  timeIntervail = setInterval(increaseTime, 1000);
 }
 
 function increaseTime() {
@@ -155,8 +108,8 @@ function increaseTime() {
 }
 
 //create animal on the screen
- function createAnimal() {
-  const screenMax = document.querySelectorAll(".insect");
+function createAnimal() {
+  const screenMax = document.querySelectorAll(".animal");
   if (screenMax.length >= 50) {
     return;
   }
@@ -164,29 +117,30 @@ function increaseTime() {
   if (finish === true) {
     return;
   }
-  const insect = document.createElement("div");
+  const animal = document.createElement("div");
   // const animal= cats[Math.floor(Math.random() * cats.length)]
-  const animal =
+  const animalSelected =
     current_animals[Math.floor(Math.random() * current_animals.length)];
 
   cute = document.createElement("audio");
   angry = document.createElement("audio");
 
-  cute.src = animal.enter;
-  angry.src = animal.exit;
+  cute.src = animalSelected.enter;
+  angry.src = animalSelected.exit;
 
   var screenWidth = window.innerWidth;
 
-
-  insect.classList.add("insect");
+  animal.classList.add("animal");
   const { x, y } = getRandomLocation();
 
-  insect.style.top = `${y}px`;
-  insect.style.left = `${x}px`;
-  insect.innerHTML = `<img src="${animal.img}" alt="${
-    selected_insect.alt
-  }" style="transform: rotate(${Math.random() * 360}deg); width:${screenWidth>500?'100px':'70px'} ";
-  height:${screenWidth>500?'100px':'70px'}
+  animal.style.top = `${y}px`;
+  animal.style.left = `${x}px`;
+  animal.innerHTML = `<img src="${animalSelected.img}" alt="${
+    selected_animal.alt
+  }" style="transform: rotate(${Math.random() * 360}deg); width:${
+    screenWidth > 500 ? "100px" : "70px"
+  } ";
+  height:${screenWidth > 500 ? "100px" : "70px"}
   
   
   
@@ -199,93 +153,74 @@ function increaseTime() {
   let speedX = Math.random() * 7 - 3.5; // Random speed between -2.5 and 2.5
   let speedY = Math.random() * 7 - 3.5; //
 
-  function moveInsect() {
+  function moveanimal() {
     // Get container dimensions
     const containerWidth = game_container.clientWidth;
     const containerHeight = game_container.clientHeight;
 
-    // Get insect dimensions (consider margins/padding)
-    const insectWidth = insect.clientWidth;
-    const insectHeight = insect.clientHeight;
+    // Get animal dimensions (consider margins/padding)
+    const animalWidth = animal.clientWidth;
+    const animalHeight = animal.clientHeight;
     // Random speed between -2.5 and 2.5
 
     // Update position while preventing edge overflow
-    let newX = insect.offsetLeft + speedX;
-    let newY = insect.offsetTop + speedY;
+    let newX = animal.offsetLeft + speedX;
+    let newY = animal.offsetTop + speedY;
 
     // Bounce off edges (adjust padding as needed)
-    if (newX + insectWidth >= containerWidth - 10) {
+    if (newX + animalWidth >= containerWidth - 10) {
       speedX = -speedX;
-      newX = containerWidth - insectWidth - 10;
+      newX = containerWidth - animalWidth - 10;
     } else if (newX <= 10) {
       speedX = -speedX;
       newX = 10;
     }
 
-    if (newY + insectHeight >= containerHeight - 10) {
+    if (newY + animalHeight >= containerHeight - 10) {
       speedY = -speedY;
-      newY = containerHeight - insectHeight - 10;
+      newY = containerHeight - animalHeight - 10;
     } else if (newY <= 10) {
       speedY = -speedY;
       newY = 10;
     }
 
-    insect.style.left = `${newX}px`;
-    insect.style.top = `${newY}px`;
+    animal.style.left = `${newX}px`;
+    animal.style.top = `${newY}px`;
   }
   if (score > 30) {
-    setInterval(moveInsect, 30); // Move every second
+    setInterval(moveanimal, 30); // Move every second
   }
 
-  insect.addEventListener("touchstart", catchAnimal);
-  insect.addEventListener("mouseover", catchAnimal);
+  animal.addEventListener("touchstart", catchAnimal);
+  animal.addEventListener("mouseover", catchAnimal);
 
-
-  game_container.appendChild(insect);
+  game_container.appendChild(animal);
+  cute.volume=0.7;
 
   cute.play();
 }
 
-function isMobile() {
-  const userAgent = navigator.userAgent;
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
-}
 
 
-function getRandomLocation(animalWidth) {
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-  console.log("Window width:", animalWidth);
-  const num= isMobile()?200:250;
-  const padding= isMobile()?10:50;
-
-
-
-  const x = Math.random() * (width - num) +padding ;
-  const y = Math.random() * (height-num) +padding;
-  return { x, y };
-}
 
 function catchAnimal() {
-  event.preventDefault()
+  event.preventDefault();
   if (finish === true) {
     return;
   }
   increaseScore();
   this.classList.add("caught");
+  angry.volume=0.7;
+
   angry.play();
 
   setTimeout(() => this.remove(), 5000);
 
-  addInsect();
-}
-function addInsect() {
-  // setTimeout(createAnimal, 1500);
-  // setTimeout(createAnimal, 7000);
+  // addanimal();
 }
 
 function increaseScore() {
-  const dialogs= mode == "cats" ? catDialogs : dogDialogs;
+  const dialogs = mode == "cats" ? catDialogs : dogDialogs;
 
   score++;
 
@@ -294,63 +229,19 @@ function increaseScore() {
     createGiveUp();
   }
 
+  dialogs.map((dialog) => {
+    if (score >= dialog.min && dialog.max >= score) {
+      messageEl.innerHTML = dialog.title;
 
-dialogs.map((dialog)=>{
-
-if (score>=dialog.min&&dialog.max>=score) {
-  
-  messageEl.innerHTML = dialog.title;
-
-  messageEl.classList.add("visible");
-  
-}
-
-
-
-})
-
-  // if (score > 15) {
-
-  //   messageEl.innerHTML = `YOU WILL NEVER CATCH US`;
-
-  //   messageEl.classList.add("visible");
-  // }
-  // if (score > 30) {
-  //   messageEl.innerHTML = `Just Leave us alone man, what the hell?`;
-  // }
-
-  // if (score > 50) {
-    
-  // if (score % 6 === 0) {
-  //   // Check if score is a multiple of 10
-  //   createAnimal();
-  // }
-  //   messageEl.innerHTML = `Alright You have done it, We WILL SHOW MEW MERCY `;
-  // }
-
-  // if (score > 90 && score < 200) {
-  //   messageEl.innerHTML = `More Than 100 Kittens Are DEAD, DEAD you son of mew`;
-  // }
-
-  // if (score > 200) {
-  //   messageEl.innerHTML = `Alright you win we Give Up `;
-  // }
-
-  // if (score > 250) {
-  //   messageEl.innerHTML = `SIKE, We will never give up`;}
-
+      messageEl.classList.add("visible");
+    }
+  });
   scoreEl.innerHTML = `Score: ${score}`;
 }
 
-//cancel space
 
-document.addEventListener("keydown", function (event) {
-  if (event.key === " " || event.key === 32) {
-    event.preventDefault();
-    // Optional: Add your custom logic here to handle space key press on the div
-  }
-});
 
+//give up
 function createGiveUp() {
   const giveUp = document.createElement("div");
   // const animal= cats[Math.floor(Math.random() * cats.length)]
@@ -381,7 +272,7 @@ function createGiveUp() {
     const containerWidth = game_container.clientWidth;
     const containerHeight = game_container.clientHeight;
 
-    // Get insect dimensions (consider margins/padding)
+    // Get animal dimensions (consider margins/padding)
     const giveUpWidth = giveUp.clientWidth;
     const giveUpHeight = giveUp.clientHeight;
     // Random speed between -2.5 and 2.5
@@ -413,7 +304,6 @@ function createGiveUp() {
   giveUp.addEventListener("mouseenter", stopGame);
   giveUp.addEventListener("touchstart", stopGame);
 
-
   setInterval(moveGiveUp, 30); // Move every second
 
   game_container.appendChild(giveUp);
@@ -421,15 +311,12 @@ function createGiveUp() {
 
 function stopGame() {
   scream = document.createElement("audio");
-  scream.src=screamUrl;
-
-  scream.play()
-
+  scream.src = screamUrl;
+  scream.play();
   if (finish == true) {
     return;
   }
   finish = true;
-
   messageEl.classList.remove("visible");
   resultMessage.innerHTML = ` You Catch ${score} in ${timeEl.innerHTML.slice(
     5,
@@ -437,60 +324,50 @@ function stopGame() {
   )}
   
   `;
-  supportButton.classList.add("support-visable")
-
+  supportButton.classList.add("support-visable");
   overMessage.classList.add("over-message");
-
   score = 0;
   secounds = 0;
 }
 
+restartBtn.addEventListener("click", restartGame);
+returnHomeBtn.addEventListener("click", returnHome);
+
+// restart the game
 function restartGame() {
-
   finish = false;
-  timeEl.innerHTML = `Time: ${00}:${00}`;
+  timeEl.innerHTML = `Time: ${0}:${0}`;
   scoreEl.innerHTML = `Score: 0`;
-
-
   removeGame();
-  supportButton.classList.remove("support-visable")
-
+  supportButton.classList.remove("support-visable");
   overMessage.classList.remove("over-message");
-
 }
 
-
+// return to the homescreen
 function returnHome() {
+  soundtrack.volume=.7;
+  soundtrack.play()
+
   stopIntervals();
-
-  timeEl.innerHTML = `Time: ${00}:${00}`;
+  timeEl.innerHTML = `Time: ${0}:${0}`;
   scoreEl.innerHTML = `Score: 0`;
-
-  removeAllElementsByClass("insect");
+  removeAllElementsByClass("animal");
   removeAllElementsByClass("give-up");
-  supportButton.classList.remove("support-visable")
-
+  supportButton.classList.remove("support-visable");
   overMessage.classList.remove("over-message");
-  header.classList.remove('hide');
+  header.classList.remove("hide");
+  copyRight.classList.remove("hide");
 
   screens[1].classList.remove("up");
   screens[0].classList.remove("up");
-
-
-
 }
 
-restartBtn.addEventListener("click", restartGame);
-
-
-
-returnHomeBtn.addEventListener("click", returnHome);
-
-
+//clear the game
 function removeGame() {
-  removeAllElementsByClass("insect");
+  removeAllElementsByClass("animal");
   removeAllElementsByClass("give-up");
 }
+
 function removeAllElementsByClass(className) {
   const elements = document.querySelectorAll(`.${className}`);
   elements.forEach((element) => element.remove());
@@ -499,5 +376,4 @@ function removeAllElementsByClass(className) {
 function stopIntervals() {
   clearInterval(timeIntervail);
   clearInterval(animalIntervel);
-  
 }

@@ -1,90 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    
-    <link rel="stylesheet" href="style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Catch and Dash</title>
-  </head>
-  <body>
-    
-    <div class="screen first">
-      
 
-      <div class="title-pos">
-        <h3 class="title">The Flow Zone</h3>
-        
-          
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" sizes="16x16 32x32" href="assets/images/cat.png">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Don't Catch Us </title>
+</head>
+
+<body>
+<audio class="soundtrack" src="assets/audio/soundtrack.mp3" id="soundtrack" loop controls></audio>
+  <div class="screen first">
+
+
+    <div class="the-flow-zone-pos">
+      <h3 class="the-flow-zone">The Flow Zone</h3>
+    </div>
+    <div class="copy-right"><p>Copyright © 2024 The Flow Zone</p></div>
+    <h3 class="popup-text">Don't Catch Us<h3>
+        <button class="btn" id="start-btn">Catch Them</button>
+        <p class="hint">But dont give up
+        <p>
+  </div>
+ 
+  <div class="screen">
+    <h3>What do you want to catch?</h3>
+    <ul class="animals-list">
+      <li>
+        <button class="choose-animal-btn" id="cats">
+          <p>Cats</p>
+          <img
+            src="https://png.pngtree.com/png-clipart/20230511/ourmid/pngtree-isolated-cat-on-white-background-png-image_7094927.png"
+            alt="" />
+        </button>
+      </li>
+      <li>
+        <button class="choose-animal-btn" id="dogs">
+          <p>Dogs</p>
+          <img src="assets/images/dog.png" alt="" />
+        </button>
+      </li>
+    </ul>
+    <p class="hint">Remember, don't <span class="hint2"> GIVE UP</span>
+    <p>
+  </div>
+
+
+  <div class="screen game-container" id="game-container">
+    <audio id='cute1' src=""></audio>
+    <audio id='angry1' src=""></audio>
+    <h3 class="time" id="time">Time: 00:00</h3>
+    <h3 class="score" id="score">Score: 0</h3>
+    <h4 class="message" id="message">
+      <br>
+    </h4>
+    <div class="message" id="over">
+      <h4 id="result-message">You lose</h4>
+      <div class="over-row">
+        <button class="btn" id="return">
+          <h4>Give UP</h4>
+        </button>
+        <button class="btn" id="restart">
+          <h4>Restart</h4>
+        </button>
+      </div>
+      <div class="support-button support-visual">
+        <form action="https://www.paypal.com/donate" method="post" target="_top">
+          <input type="hidden" name="hosted_button_id" value="NUMZJZBUY7Z8L" />
+          <input type="image"
+            src="https://pics.paypal.com/00/s/YjEyMzg3ZDgtMTk5Mi00MmVlLTkzYzktMmJhODdkMDYwMzk3/file.PNG" name="submit"
+            title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+          <img alt="" src="https://www.paypal.com/en_AE/i/scr/pixel.gif" width="1" height="1" />
+        </form>
       </div>
 
-    
-      <h3 >Don't Catch Us<h3>
-      <button class="btn" id="start-btn">Catch Them</button>
-      <p class="hint">But dont give up<p>
-
     </div>
 
-    <div class="screen">
-      <h3>What do you want to catch?</h3>
-      <ul class="insects-list">
-        <li>
-          <button class="choose-insect-btn" id="cats">
-            <p>Cats</p>
-            <img src="https://png.pngtree.com/png-clipart/20230511/ourmid/pngtree-isolated-cat-on-white-background-png-image_7094927.png" alt="" />
-          </button>
-        </li>
-        <li>
-          <button class="choose-insect-btn" id="dogs">
-            <p>Dogs</p>
-            <img src="assets/images/dog.png" alt="" />
-          </button>
-        </li>
-        
-                </ul>
-                <p class="hint">Remember, don't <span class="hint2"> GIVE UP</span><p>
 
-    </div>
+  </div>
+  <script type="module" src="script/script.js"></script>
+</body>
 
-    
-
-    <div class="screen game-container" id="game-container">
-      <audio id ='cute1' src=""></audio>
-      <audio id ='angry1' src=""></audio>
- 
-        <h3 class="time" id="time">Time: 00:00</h3>
-        <h3 class="score" id="score">Score: 0</h3>
-        
-        <h4 class="message" id="message">
-
-           <br>
-           
-        </h4>
-        <div class="message" id="over">
-
-          <h4 id="result-message">You lose</h4>
-          <div class="over-row">
-            <button class="btn" id="return"><h4>Give UP</h4> </button>
-            <button class="btn" id="restart"><h4>Restart</h4></button>
-           
-            
-                
-
-
-          </div>
-          <div class="support-button support-visual" >
-            <form action="https://www.paypal.com/donate" method="post" target="_top">
-              <input type="hidden" name="hosted_button_id" value="NUMZJZBUY7Z8L" />
-              <input type="image"  src="https://pics.paypal.com/00/s/YjEyMzg3ZDgtMTk5Mi00MmVlLTkzYzktMmJhODdkMDYwMzk3/file.PNG"  name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
-              <img alt=""  src="https://www.paypal.com/en_AE/i/scr/pixel.gif" width="1" height="1" />
-              </form>
-            </div>
-          
-        </div>
-
-      
-    </div>
-    <script src="script/script.js"></script>
-  </body>
 </html>

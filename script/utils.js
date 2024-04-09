@@ -10,10 +10,10 @@
 export function getRandomLocation() {
     const width = window.innerWidth;
     const height = window.innerHeight;
-    const num = isMobile() ? 200 : 250;
+    const num = isMobile() ? 100 : 250;
     const padding = isMobile() ? 10 : 50;
   
-    const x = Math.random() * (width - num) + padding;
-    const y = Math.random() * (height - num) + padding;
+    const x = Math.random() * (width - window.innerWidth*.2) + padding;
+    const y = Math.random() * (height - window.innerHeight*.2) + padding;
     return { x, y };
   }

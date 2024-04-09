@@ -29,6 +29,17 @@ h1 {
   justify-content: center;
   list-style-type: none;
 }
+
+
+.popup-text.pop{
+  transform: scale(1.1);
+  transition: all 0.6s ease-in;
+}
+
+
+.soundtrack{
+  display: none;
+}
 .animals-list li {
   margin: 10px;
 }
@@ -102,6 +113,24 @@ h1 {
   display: none;
 }
 
+.screen.first .copy-right{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  font-size: 10px;
+  bottom: 30px;
+  width: 100vw;
+
+}
+ 
+.screen.first .copy-right.hide{
+  display: none;
+
+
+}
+
+
 .screen.up {
   margin-top: -100vh;
 }
@@ -115,6 +144,10 @@ h1 {
 .hint2 {
   color: darksalmon;
 }
+
+.hint2.pop {
+font-size: 15px;  transition: all 0.4s ease-in;}
+  
 .choose-animal-btn img {
   width: 100px;
   height: 100px;
@@ -143,6 +176,7 @@ h1 {
   font-family: inherit;
   cursor: pointer;
 }
+
 
 .support-button.support-visable {
   display: block;
@@ -239,7 +273,7 @@ h1 {
   }
 
   .message {
-    padding: 7px;
+    padding: 8px;
 
     font-size: 11px;
     line-height: 1;

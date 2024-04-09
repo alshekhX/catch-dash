@@ -1,6 +1,6 @@
 import { screens,choose_animal_btns,start_btn,game_container,timeEl,scoreEl,
 
-  messageEl,title,header,overMessage,resultMessage,supportButton,restartBtn,returnHomeBtn
+  messageEl,copyRight, hint2, popupText, soundtrack, title,header,overMessage,resultMessage,supportButton,restartBtn,returnHomeBtn
 ,catDialogs,dogDialogs,colors,cats,dogs,screamUrl
 } from "./consts.js";
 
@@ -18,6 +18,33 @@ let finish = false;
 let secounds = 0;
 let score = 0;
 let selected_animal = {};
+
+
+
+function popUpText() {
+  // Play the sound
+
+  // Simulate a "pop" effect (optional)
+  popupText.classList.add("pop"); // Add a CSS class for styling
+  hint2.classList.add("pop"); // Add a CSS class for styling
+
+  // Remove the "pop" effect after a delay (adjust as needed)
+  setTimeout(function() {
+    popupText.classList.remove("pop");
+    hint2.classList.remove("pop"); // Add a CSS class for styling
+    // Remove the CSS class
+  }, 200); // Remove pop effect after 0.2 seconds
+}
+
+// Set the interval to repeat the pop-up (adjust as needed)
+
+
+window.onload = function() {
+  soundtrack.loop=true;
+  setInterval(popUpText, 550); // Repeat every 1 second
+
+
+  soundtrack.play();};
 
 
 //cancel space
@@ -48,6 +75,10 @@ choose_animal_btns.forEach((button) => {
 
     screens[1].classList.add("up");
     finish = false;
+    // soundtrack.pause()
+    soundtrack.volume = 0.2; // Sets the volume to half (50%)
+
+
 
     animalIntervel = setInterval(createAnimal, 700);
     startGame();
@@ -56,6 +87,7 @@ choose_animal_btns.forEach((button) => {
 
 function startGame() {
   header.classList.add("hide");
+  copyRight.classList.add("hide");
   if (finish == true) {
     return;
   }
@@ -163,6 +195,7 @@ function createAnimal() {
   animal.addEventListener("mouseover", catchAnimal);
 
   game_container.appendChild(animal);
+  cute.volume=0.7;
 
   cute.play();
 }
@@ -177,6 +210,8 @@ function catchAnimal() {
   }
   increaseScore();
   this.classList.add("caught");
+  angry.volume=0.7;
+
   angry.play();
 
   setTimeout(() => this.remove(), 5000);
@@ -310,6 +345,9 @@ function restartGame() {
 
 // return to the homescreen
 function returnHome() {
+  soundtrack.volume=.7;
+  soundtrack.play()
+
   stopIntervals();
   timeEl.innerHTML = `Time: ${0}:${0}`;
   scoreEl.innerHTML = `Score: 0`;
@@ -318,6 +356,8 @@ function returnHome() {
   supportButton.classList.remove("support-visable");
   overMessage.classList.remove("over-message");
   header.classList.remove("hide");
+  copyRight.classList.remove("hide");
+
   screens[1].classList.remove("up");
   screens[0].classList.remove("up");
 }

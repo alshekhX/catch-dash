@@ -245,6 +245,10 @@ function increaseScore() {
 
 //give up
 function createGiveUp() {
+  const screenMax = document.querySelectorAll(".give-up");
+  if (screenMax.length >= 40) {
+    return;
+  }
   const giveUp = document.createElement("div");
   // const animal= cats[Math.floor(Math.random() * cats.length)]
   const animal =

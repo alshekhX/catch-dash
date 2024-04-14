@@ -246,7 +246,7 @@ function increaseScore() {
 //give up
 function createGiveUp() {
   const screenMax = document.querySelectorAll(".give-up");
-  if (screenMax.length >= 40) {
+  if (screenMax.length >= 50) {
     return;
   }
   const giveUp = document.createElement("div");
